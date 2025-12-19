@@ -4,6 +4,7 @@ import com.jpmc.midascore.foundation.Transaction;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
+import java.util.Objects;
 
 @Component
 public class KafkaProducer {
@@ -11,7 +12,7 @@ public class KafkaProducer {
     private final KafkaTemplate<String, Transaction> kafkaTemplate;
 
     public KafkaProducer(@Value("${general.kafka-topic}") String topic, KafkaTemplate<String, Transaction> kafkaTemplate) {
-        this.topic = topic;
+        this.topic = Objects.requireNonNull(topic, "topic cannot be null");
         this.kafkaTemplate = kafkaTemplate;
     }
 
